@@ -1,0 +1,112 @@
+public class EmailChecker implements CS2EmailExceptionsGradable {
+
+    private String firstName;
+    private String lastName;
+    private String email;
+    private boolean isStudent;
+
+public EmailChecker(String firstName, String lastName, String email, boolean isStudent) {
+    this.firstname = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.isStudent = isStudent;
+  }
+ public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean getIsStudent() {
+        return isStudent;
+    }
+
+    @Override
+    public String toString() {
+        return "First Name: " + firstName
+                + "\nLast Name: " + lastName
+                + "\nEmail: " + email
+                + "\nStudent: " + isStudent;
+    }
+
+      @Override
+    public int containsAt() throws EmailFormatException {
+
+        int index = email.indexOf('@');
+
+        if (index == -1) {
+            throw new EmailFormatException("Missing @ symbol in email");
+        }
+
+        return index;
+    }
+
+    @Override
+    public boolean validateStoutDomain(int indexOfAt) throws EmailFormatException {
+
+        String domain = email.substring(indexOfAt + 1);
+
+        if (isStudent) {
+
+            if (!domain.equals("my.uwstout.edu")) {
+                throw new EmailFormatException("Incorrect domain, expected my.uwstout.edu");
+            }
+
+        }
+    else {
+
+            if (!domain.equals("uwstout.edu")) {
+                throw new EmailFormatException("Incorrect domain, expected uwstout.edu");
+            }
+
+        }
+
+        return true;
+    }
+
+    @Override
+    public boolean validateUsername() throws EmailFormatException {
+
+        int atIndex = containsAt();
+
+        String username = email.substring(0, atIndex);
+
+        String expectedStart =
+                lastName.toLowerCase() +
+                firstName.toLowerCase().charAt(0);
+
+        if (!username.startsWith(expectedStart)) {
+            throw new EmailFormatException("Does not match name");
+        }
+
+        if (isStudent) {
+
+            String digits = username.substring(expectedStart.length());
+
+            if (digits.length() != 4) {
+                throw new EmailFormatException("Invalid digits");
+            }
+
+            for (int i = 0; i < digits.length(); i++) {
+
+                if (!Character.isDigit(digits.charAt(i))) {
+                    throw new EmailFormatException("Invalid digits");
+                }
+
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public int justBecause() {
+        return 42;
+    }
+  }  
