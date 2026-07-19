@@ -1,0 +1,59 @@
+public class EmailCheckerDriver {
+    public static void main(String[] args) {
+
+    EmailChecker[] tests = {
+
+    new EmailChecker(
+         "John",
+         "Smith",
+         "smithj1234@my.uwstout.edu",
+          true),
+    new EmailChecker(
+        "Jane",
+        "Doe",
+        "doej@uwstout.edu"
+      false),
+    new EmailChecker(
+      "Bob",
+      "Jones",
+      "jonesb1234my.uwstout.edu"
+      true),
+    new EmailChecker(
+      "Sam",
+      "Brown",
+      "browns1234@gmail.com",
+      true),
+    new EmailChecker(
+      "Mary",
+      "Wilson",
+      "abc1234@my.uwstout.edu",
+      true),
+    new EmailChecker(
+      "Chris",
+      "Taylor",
+      "taylor@my.uwstout.edu",
+      true)
+    };
+    for (EmailChecker e : tests) {
+      System.out.println("----------------------------");
+      System.out.println(e);
+    }
+
+    try{
+        int at = e.containsAt();
+        System.out.println("containsAt(): " + at);
+
+        System.out.println("ValidateStoutDomain(): " + e.validateStoutDomain(at));
+
+        System.out.println("ValidateUsername(): " + e.validateUsername());
+
+        System.out.println("justBecause(); " = e.justBecause());
+    }
+      catch (EmailFormatException ex) {
+
+      System.out.println("Exception: " + e.getMessage());
+      }
+
+      
+      }
+    }
